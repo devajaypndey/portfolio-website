@@ -1,9 +1,21 @@
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
-
   return (
-    <h1>heloo nii</h1>
-  )
+    <div className="min-h-screen flex flex-col bg-[#020B1F]">
+
+      <Navbar />
+
+
+      <main className="flex-1">
+        
+      </main>
+
+
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;
