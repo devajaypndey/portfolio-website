@@ -1,18 +1,19 @@
 import { useState } from "react";
-import { Github, Moon, Menu, X } from "lucide-react";
+import { Moon, Menu, X } from "lucide-react";
+import { VscGithubInverted } from "react-icons/vsc";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-[#020B1F] border-b border-gray-800">
+    <nav className="bg-[#FFFAF3] border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
 
 
           <div className="flex items-center cursor-pointer">
             <span className="text-orange-500 font-black text-2xl">//</span>
-            <span className="text-white font-bold text-2xl">AH</span>
+            <span className="text-[#273338] font-bold text-2xl">Ajay</span>
           </div>
 
 
@@ -38,7 +39,7 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="text-gray-300 hover:text-white transition-colors duration-200"
             >
-              <Github size={18} />
+              <VscGithubInverted size={18} />
             </a>
 
 
@@ -86,7 +87,7 @@ export default function Navbar() {
                   href="https://github.com"
                   className="text-gray-300 hover:text-white"
                 >
-                  <Github size={18} />
+                  <VscGithubInverted size={18} />
                 </a>
 
                 <button className="text-gray-300 hover:text-white">
