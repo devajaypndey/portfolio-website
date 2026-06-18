@@ -2,7 +2,7 @@ import { Home, GitBranch } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#020B1F] border-t border-gray-800">
+    <footer className="bg-[#FFFAF3] border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between h-14 text-sm">
 
