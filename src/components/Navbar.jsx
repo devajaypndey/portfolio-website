@@ -1,103 +1,137 @@
-import { useState } from "react";
-import { Moon, Menu, X } from "lucide-react";
-import { VscGithubInverted } from "react-icons/vsc";
+import { useState, useEffect } from "react";
+import { navLinks, personalInfo } from "../data/portfolioData";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <nav className="bg-[#FFFAF3] border-b border-gray-800">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <header
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 100,
+        transition: "all 0.3s ease",
+        background: scrolled ? "rgba(249,246,240,0.92)" : "transparent",
+        backdropFilter: scrolled ? "blur(12px)" : "none",
+        borderBottom: scrolled ? "1px solid var(--border)" : "1px solid transparent",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto",
+          padding: "0 2rem",
+          height: "60px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        
+        <a href="/" style={{ display: "flex", alignItems: "center", gap: "4px", fontWeight: 700, fontSize: "1.05rem", color: "var(--text-primary)" }}>
+          <span style={{ color: "#f97316", fontWeight: 900 }}>//</span>
+          <span>Ajay</span>
+        </a>
 
-
-          <div className="flex items-center cursor-pointer">
-            <span className="text-orange-500 font-black text-2xl">//</span>
-            <span className="text-[#273338] font-bold text-2xl">Ajay</span>
-          </div>
-
-
-          <div className="hidden md:flex items-center space-x-8">
+        
+        <nav style={{ display: "flex", alignItems: "center", gap: "2rem" }} className="desktop-nav">
+          {navLinks.map((l) => (
             <a
-              href="#resume"
-              className="text-gray-300 hover:text-white text-sm font-semibold tracking-wider transition-colors duration-200"
+              key={l.label}
+              href={l.href}
+              style={{
+                fontSize: "0.85rem",
+                color: "var(--text-secondary)",
+                fontWeight: 500,
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={(e) => (e.target.style.color = "var(--text-primary)")}
+              onMouseLeave={(e) => (e.target.style.color = "var(--text-secondary)")}
             >
-              RESUME
+              {l.label}
             </a>
-
-            <a
-              href="#contact"
-              className="text-gray-300 hover:text-white text-sm font-semibold tracking-wider transition-colors duration-200"
-            >
-              CONTACT
-            </a>
-
-
-            <a
-              href="https://github.com/devajaypndey"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-white transition-colors duration-200"
-            >
-              <VscGithubInverted size={18} />
-            </a>
-
-
-            <button className="text-gray-300 hover:text-white transition-colors duration-200">
-              <Moon size={18} />
-            </button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-white"
-            onClick={() => setIsOpen(!isOpen)}
+          ))}
+          <a
+            href={`mailto:${personalInfo.email}`}
+            style={{
+              padding: "0.45rem 1.1rem",
+              background: "var(--text-primary)",
+              color: "#fff",
+              borderRadius: "99px",
+              fontSize: "0.82rem",
+              fontWeight: 500,
+              transition: "opacity 0.2s",
+            }}
+            onMouseEnter={(e) => (e.target.style.opacity = 0.8)}
+            onMouseLeave={(e) => (e.target.style.opacity = 1)}
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
+            Hire me
+          </a>
+        </nav>
 
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden border-t border-gray-800 py-4">
-            <div className="flex flex-col space-y-4">
-              <a
-                href="#resume"
-                className="text-gray-300 hover:text-white text-sm font-semibold tracking-wider"
-              >
-                RESUME
-              </a>
-
-              <a
-                href="#contact"
-                className="text-gray-300 hover:text-white text-sm font-semibold tracking-wider"
-              >
-                CONTACT
-              </a>
-
-              <div className="flex items-center space-x-5 pt-2">
-                <a
-                  href="https://x.com"
-                  className="text-gray-300 hover:text-white"
-                >
-                  <span className="text-lg">𝕏</span>
-                </a>
-
-                <a
-                  href="https://github.com"
-                  className="text-gray-300 hover:text-white"
-                >
-                  <VscGithubInverted size={18} />
-                </a>
-
-                <button className="text-gray-300 hover:text-white">
-                  <Moon size={18} />
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          style={{ display: "none", background: "none", border: "none", cursor: "pointer" }}
+          className="mobile-toggle"
+        >
+          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </div>
-    </nav>
+
+      {mobileOpen && (
+        <div
+          style={{
+            background: "var(--bg-primary)",
+            borderTop: "1px solid var(--border)",
+            padding: "1.25rem 2rem",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
+          }}
+        >
+          {navLinks.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              onClick={() => setMobileOpen(false)}
+              style={{ fontSize: "0.9rem", color: "var(--text-secondary)", fontWeight: 500 }}
+            >
+              {l.label}
+            </a>
+          ))}
+          <a
+            href={`mailto:${personalInfo.email}`}
+            style={{
+              padding: "0.5rem 1.2rem",
+              background: "var(--text-primary)",
+              color: "#fff",
+              borderRadius: "99px",
+              fontSize: "0.85rem",
+              fontWeight: 500,
+              width: "fit-content",
+            }}
+          >
+            Hire me
+          </a>
+        </div>
+      )}
+
+      <style>{`
+        @media (max-width: 640px) {
+          .desktop-nav { display: none !important; }
+          .mobile-toggle { display: block !important; }
+        }
+      `}</style>
+    </header>
   );
 }
