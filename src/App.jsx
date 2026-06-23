@@ -1,18 +1,12 @@
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#FFF4E1]">
-
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg-primary)" }}>
       <Navbar />
-
-
-      <main className="flex-1">
-        
-      </main>
-
-
+      <HomePage />
       <Footer />
     </div>
   );
